@@ -59,5 +59,5 @@ class Game(Base):
             'trailer_url' : self.trailer_url,
         }
 
-engine = create_engine('sqlite:///GameFan.db')
+engine = create_engine('sqlite:////vagrant/GameFan/GameFan.db')
 Base.metadata.create_all(engine)

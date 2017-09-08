@@ -15,10 +15,10 @@ import os
 app = Flask(__name__)
 
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open('/vagrant/GameFan/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Game Fan Club App"
 
-engine = create_engine('sqlite:///GameFan.db')
+engine = create_engine('sqlite:////vagrant/GameFan/GameFan.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
@@ -344,5 +344,5 @@ def isAdmin():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.secret_key = 'super_secret_key'
-    app.debug = True
+    #app.debug = True
     app.run('0.0.0.0', port) 
