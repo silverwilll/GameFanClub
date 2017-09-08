@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Edit {{category.name}}</h1>
+    <form method = 'POST' action = "{{url_for('editCategory', category_id = category.id)}}">
+    <label for="name">Name:</label>
+    <input name = 'name' type = 'text' class="form-control" value="{{category.name}}">
+    <label for="description">Description:</label>
+    <textarea name = 'description' type = 'text' class="form-control" rows='3'>{{category.description}}</textarea>
+    <label for="img_url">image URL:</label>
+    <input name = 'img_url' type = 'text' value = '{{category.img_url}}' class="form-control">
+    <input type='submit' value='Edit'>
+    </form>
+    <a href="{{url_for('showCategory')}}"> Cancel </a>
+{% endblock %}

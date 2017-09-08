@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class='col-md-12'>
+    <h1>Delete Category {{category.name}}</h1>
+    <form method = 'POST' action = "{{url_for('deleteCategory', category_id=category.id)}}">
+    <input type='submit' value='Delete'>
+    </form>
+    <form method = 'GET' action = "{{url_for('showCategory')}}">
+    <input type='submit' value='Cancel'>
+    </form>    
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+    <h1>{{category_name|capitalize}} Game Library</h1>
+    <!-- Flash Messages -->
+    <div class='col-md-12'>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li><strong>{{message}}</strong></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    </div>
+    <div class='row'>
+        <div class='col-md-12'>
+        <h3><a href="{{url_for('newGame', category_name=category_name)}}">Create New Game</a></h3>
+        </div>
+    </div>
+    <div class='row'>
+    {% for game in games %}
+        <div class='col-md-4 text-center'>
+            <h2>{{game.name}}</h2>
+            <p>Pruducer: {{game.developer}}, {{game.year}}</p>
+            <img class="img-responsive" src="{{game.image_url}}" alt="{{game.name}} picture" style="cursor: pointer"
+            data-toggle="modal" data-target="#{{game.name}}" width="100%">
+            {% if user_id == game.creator_id or user_level >= 5%}
+            <p><a href="{{url_for('editGame', game_id=game.id, category_name=category_name)}}">EDIT</a></p>
+            <p><a href="{{url_for('deleteGame', game_id=game.id, category_name=category_name)}}">DELETE</a></p>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+    <!-- Modal -->
+    {% for game in games %} 
+        <div class="modal fade" id="{{game.name}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">{{game.name}}</h4>
+                    </div>
+                    <div class="modal-body">
+                    <p class="text-justify">{{game.description}}</p>
+                    <p class='text-justify'>Rate: {{game.rate}}</p>
+                            <div class='row'>  
+                                <iframe width="100%" height="400px"
+                                src="https://www.youtube.com/embed/{{game.trailer_url}}">
+                                </iframe>
+                            </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    {% endfor %}
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>    
+{% endblock %}

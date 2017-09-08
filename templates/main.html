@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class='row'>
+<div class='col-md-12 text-center'>
+    <h1>Game Fan Club</h1>
+</div>
+</div>
+<!-- Flash Messages -->
+<div class='row'>
+<div class='col-md-12'>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li><strong>{{message}}</strong></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endwith %}
+</div>
+</div>
+<div class='row'>
+<div class='col-md-12'>
+    <h3><a href="{{url_for('newCategory')}}">Create New Category</a></h3>
+</div>
+</div>
+<div class='row'>
+    {% for category in categories %}
+<div class='col-md-4 text-center'>
+    <p>
+        <h2>{{category.name|capitalize}} </h2>
+    </p>
+    <form name="myform" action="{{url_for('showGame', category_name=category.name)}}" method="GET">
+    <div align="center">
+        <input type="image" src="{{category.img_url}}" name="image" class="img-rounded" alt="{{category.name}} photo" width="100%"><br>
+    </div>
+    </form>
+    {% if user_id == category.creator_id or user_level >= 5%}    
+    <p><a href="{{url_for('editCategory', category_id=category.id)}}">EDIT</a></p>
+    <p><a href="{{url_for('deleteCategory', category_id=category.id)}}">DELETE</a></p>
+    {% endif %}
+</div>
+{% endfor %}
+</div>
+{% endblock %}

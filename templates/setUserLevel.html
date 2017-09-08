@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "header.html" %}
+    <div class='col-md-12'>
+    <h1>Create New Category</h1>
+    <form method = 'POST' action = "{{url_for('setUserLevel')}}">
+    <label for="email">Email:</label>
+    <input name = 'email' type = 'text' class="form-control" placeholder = 'Designated User Email'>
+    <label for='level'>Level:</label>
+    <input name='level' type = 'text' class='form-control' placeholder="Level">
+    <input type='submit' value='Submit'>
+    </form>
+    <a href="{{url_for('showCategory')}}"> Cancel </a>
+    </div>
+{% endblock %}

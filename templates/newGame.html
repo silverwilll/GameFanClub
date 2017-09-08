@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class='col-md-12'>
+    <h1>Create New Game</h1>
+    <form method = 'POST' action = "{{url_for('newGame', category_name=category_name)}}">
+    <label for="name">Name:</label>
+    <input name = 'name' type = 'text' class="form-control" placeholder = 'New Category Name'>
+    <label for="description">Description:</label>
+    <textarea name = 'description' type = 'text' class='form-control' rows='3'></textarea>
+    <lavel for="year">Year:</lavel>
+    <input name = "year" type = 'text' class="form-control">
+    <lavel for="developer">Developer:</lavel>
+    <input name = "developer" type = 'text' class="form-control">
+    <lavel for="genre">Genre:</lavel><br>
+    {% for category in categories %}
+    <input name = "genre" type = 'checkbox' value={{category.name}} {% if category.name in category_name %} checked {% endif %}>{{category.name}}
+    {% endfor %}
+    <br>
+    <label for="rate">Rate:</label>
+    <input name = 'rate' type = 'text' class="form-control" placeholder="rate between 0 - 10">     
+    <label for="img_url">image URL:</label>
+    <input name = 'img_url' type = 'text' class="form-control">
+    <label for="trailer_url">Trailer URL:</label>
+    <input name='trailer_url' type= 'text' class="form-control">
+    <input type='submit' value='Create'>
+    </form>
+    <a href="{{url_for('showGame', category_name=category_name)}}"> Cancel </a>
+    </div>
+{% endblock %}
