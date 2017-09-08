@@ -10,6 +10,7 @@ import httplib2
 import json
 from flask import make_response
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -341,7 +342,7 @@ def isAdmin():
     return (level >= 5)
 
 if __name__ == '__main__':
-    port = 5000
+    port = int(os.environ.get('PORT', 5000))
     app.secret_key = 'super_secret_key'
     app.debug = True
     app.run('0.0.0.0', port) 
