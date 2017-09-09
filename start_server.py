@@ -115,7 +115,8 @@ def editGame(game_id, category_name):
     if login_session['user_id'] != game.creator_id and not isAdmin():
         return WARNING
     if (request.method == 'GET'):
-        return render_template('editGame.html', game=game, category_name=category_name)
+        categories = session.query(Category).all()
+        return render_template('editGame.html', game=game, category_name=category_name, categories=categories)
     else:
         game.name = request.form['name']
         game.description = request.form['description']

@@ -12,9 +12,10 @@
     <lavel for="developer">Developer:</lavel>
     <input name = "developer" type = 'text' class="form-control" value={{game.developer}}>
     <lavel for="genre">Genre:</lavel><br>
-    <input name = "genre" type = 'checkbox' value='rpg' {% if 'rpg' in game.genre %} checked {% endif %}>RPG  
-    <input name = 'genre' type = 'checkbox' value='strategy' {% if 'strategy' in game.genre %} checked {% endif %}>Strategy  
-    <input name = 'genre' type = 'checkbox' value='mmo' {% if 'mmo' in game.genre %} checked {% endif %}>MMO<br>
+    {% for category in categories %}
+    <input name = "genre" type = 'checkbox' value={{category.name}} {% if category.name in category_name %} checked {% endif %}>{{category.name}}
+    {% endfor %}
+    <br>
     <label for="rate">Rate:</label>
     <input name = 'rate' type = 'text' class="form-control" value={{game.rate}}>     
     <label for="img_url">image URL:</label>
