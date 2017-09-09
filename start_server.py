@@ -13,6 +13,7 @@ import requests
 import os
 
 app = Flask(__name__)
+app.secret_key = 'AlphaBetaSuperKey'
 
 CLIENT_ID = json.loads(
     open('/vagrant/GameFan/client_secrets.json', 'r').read())['web']['client_id']
@@ -343,6 +344,5 @@ def isAdmin():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.secret_key = 'super_secret_key'
     #app.debug = True
     app.run('0.0.0.0', port) 
