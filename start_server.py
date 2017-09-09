@@ -52,9 +52,12 @@ def newCategory():
     else:
         category = Category(name=request.form['name'], description=request.form['description'], 
             img_url=request.form['img_url'], creator_id=login_session['user_id'])
-        session.add(category)
-        session.commit()
-        flash('New category is added')
+        try:
+            session.add(category)
+            session.commit()
+            flash('New category is added')
+        except:
+            flash('Failed to create category, input data illegal')
         return redirect(url_for('showCategory'))
 
 
@@ -71,9 +74,12 @@ def editCategory(category_id):
         category.name = request.form['name'].lower()
         category.description = request.form['description']
         category.img_url = request.form['img_url']
-        session.add(category)
-        session.commit()
-        flash('Cotegory updated successfully')
+        try:
+            session.add(category)
+            session.commit()
+            flash('Cotegory updated successfully')
+        except:
+            flash('Failed to update category, input data illegal')
         return redirect(url_for('showCategory'))
 
 
@@ -119,9 +125,12 @@ def editGame(game_id, category_name):
         game.genre = '-'.join(request.form.getlist('genre'))
         game.developer = request.form['developer']
         game.rate = request.form['rate']
-        session.add(game)
-        session.commit()
-        flash('Game info updated succesfully')
+        try:
+            session.add(game)
+            session.commit()
+            flash('Game info updated succesfully')
+        except:
+            flash('Failed to update game info, input data illegal')
         return redirect(url_for('showGame', category_name=category_name))
 
 
@@ -133,12 +142,15 @@ def newGame(category_name):
         categories = session.query(Category).all()
         return render_template('newGame.html', category_name=category_name, categories=categories)
     else:
-        game = Game(name=request.form['name'], description=request.form['description'],year=request.form['year'],
-            image_url=request.form['img_url'], trailer_url=request.form['trailer_url'], genre='-'.join(request.form.getlist('genre')),
-            developer=request.form['developer'], rate=request.form['rate'], creator_id=login_session['user_id'])
-        session.add(game)
-        session.commit()
-        flash('New Game added succesfully')
+        try:
+            game = Game(name=request.form['name'], description=request.form['description'],year=request.form['year'],
+                image_url=request.form['img_url'], trailer_url=request.form['trailer_url'], genre='-'.join(request.form.getlist('genre')),
+                developer=request.form['developer'], rate=request.form['rate'], creator_id=login_session['user_id'])
+            session.add(game)
+            session.commit()
+            flash('New Game added succesfully')
+        except:
+            flash('Failed to add game, input data illegal')
         return redirect(url_for('showGame', category_name=category_name))        
 
 @app.route('/category/<string:category_name>/<int:game_id>/deleteGame', methods=['GET', 'POST'])
