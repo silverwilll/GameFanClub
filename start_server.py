@@ -18,7 +18,7 @@ CLIENT_ID = json.loads(
     open('/vagrant/GameFan/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Game Fan Club App"
 
-engine = create_engine('sqlite:////vagrant/GameFan/GameFan.db')
+engine = create_engine('postgresql://tester:letmein@localhost/gamefandb')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
