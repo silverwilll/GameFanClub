@@ -23,7 +23,7 @@
         <div class='col-md-4 text-center'>
             <h2>{{game.name}}</h2>
             <p>Pruducer: {{game.developer}}, {{game.year}}</p>
-            <img class="img-responsive" src="{{game.image_url}}" alt="{{game.name}} picture" style="cursor: pointer"
+            <img class="img-responsive img-rounded" src="{{game.image_url}}" alt="{{game.name}} picture" style="cursor: pointer"
             data-toggle="modal" data-target="#Tag{{game.id}}" width="100%">
         </div>
     {% endfor %}
